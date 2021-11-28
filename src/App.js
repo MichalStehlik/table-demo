@@ -1,23 +1,33 @@
-import logo from './logo.svg';
+import {useMemo} from "react";
+import Table from "./components/Table";
 import './App.css';
 
+// https://react-table.tanstack.com/
+
 function App() {
+  const columns = useMemo(
+    () => [
+      {Header: "First Name", accessor: "firstname"},
+      {Header: "Last Name", accessor: "lastname"},
+      {Header: "Age", accessor: "age"},
+      {Header: "Visits", accessor: "visits"}
+    ],
+    []
+  );
+
+  const data = useMemo(
+    () => {
+      return [
+        {firstname: "Alois", lastname: "Antl", age: 12, visits: 25, status: "alive", progress: 80},
+        {firstname: "Boris", lastname: "Blekota", age: 18, visits: 10, status: "barely alive", progress: 100},
+        {firstname: "Cyril", lastname: "Cudný", age: 10, visits: 10, status: "barely alive", progress: 100},
+        {firstname: "Diana", lastname: "Dvořáková", age: 35, visits: 6, status: "very alive", progress: 100},
+    ]
+    },[]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Table columns={columns} data={data} />
     </div>
   );
 }
